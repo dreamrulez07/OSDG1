@@ -6,6 +6,7 @@
         <%= gravatar_for @user %>
         <%= @user.name %>
       </h1>
+      Reputation (<%= current_user.reputation_value_for(:votes).to_i %>)
     </section>
     <section>
       <%= render 'shared/stats' %>

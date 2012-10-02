@@ -1,6 +1,7 @@
 Qna::Application.routes.draw do
   
   resources :posts do
+    member { post :vote }
     resources :comments
   end
   

@@ -4,9 +4,10 @@
 <h1>
   <%= current_user.name %>
 </h1>
+Reputation (<%= current_user.reputation_value_for(:votes).to_i %>)
 <span>
   <%= link_to "view my profile", current_user %>
 </span>
 <span>
-  <%= pluralize(current_user.microposts.count, "quess") %>
+  <%= pluralize(current_user.microposts.count, "micropost") %>
 </span>

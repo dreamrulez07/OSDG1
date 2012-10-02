@@ -78,7 +78,7 @@ p {
   font-weight: bold;
   line-height: 1;
   &:hover {
-    color: white;
+    color: grey;
     text-decoration: none;
   }
 }
@@ -243,4 +243,9 @@ aside {
     height: 100px;
     margin-bottom: 5px;
   }
+}
+
+hr {
+  color: black;
+  background-color: black; 
 }

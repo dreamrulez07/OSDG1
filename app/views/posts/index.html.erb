@@ -1,21 +1,37 @@
-<h1>Posts</h1>
+<h1>QUESTS...</h1>
+<div class="btn btn-large btn-block"><%= link_to 'New Post', new_post_path %></div>
+</br>
+</br>
+<h3> SELECT YOUR CATEGORY OF INTEREST.... </h3>
+</br>
 
 <div id="tag_cloud">
   <% tag_cloud Post.tag_counts, %w[s m l] do |tag, css_class| %>
-    <%= link_to tag.name, tag_path(tag.name), class: css_class %>
+    <div class="btn btn-inverse"><%= link_to tag.name.upcase, tag_path(tag.name), class: css_class %></div>
   <% end %>
 </div>
-
+<hr>
+</br>
 <div id="posts">
  <% @posts.each do |post| %>
-  <h2><%= link_to post.id, post %></h2>
-  <%= post.user.name %>: <%=simple_format post.content %>
-  <p> Tags: <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %> </p>
-  <%= link_to 'See', post %>
-  <% if current_user.id == post.user_id %>
-      <%= link_to 'Edit', edit_post_path(post) %>
-      <%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %>
-  <% end %>
   
+  <h3><%= post.user.name %>:</h3> <p><%=simple_format post.content %></p>
+  Tags: <div class="btn"><%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %></div>
+  
+  <div class="btn btn-success"><%= link_to 'See', post %></div>
+  <% if current_user.id == post.user_id %>
+      <div class="btn btn-warning"><%= link_to 'Edit', edit_post_path(post) %></div>
+      <div class="btn btn-danger"><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+  <% end %>
+    </br>
+     | <%= pluralize post.reputation_value_for(:votes).to_i, "vote" %>
+     <% if current_user && !current_user.voted_for?(post) %>
+       | <%= link_to "up", vote_post_path(post, type: "up"), method: "post" %>
+       | <%= link_to "down", vote_post_path(post, type: "down"), method: "post" %>
+     </br>
+     <% end %>
+    </br>
+    <hr>
+ 
 <% end %>
-<%= link_to 'New Post', new_post_path %>
+

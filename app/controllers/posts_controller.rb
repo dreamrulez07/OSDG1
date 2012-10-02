@@ -5,9 +5,9 @@ class PostsController < ApplicationController
   # GET /posts.json
   def index
     if params[:tag]
-      @posts = Post.tagged_with(params[:tag])
+      @posts = Post.tagged_with(params[:tag]).find_with_reputation(:votes, :all, order: "votes desc")
     else
-      @posts = Post.all
+      @posts = Post.find_with_reputation(:votes, :all, order: "votes desc")
     end
 
     respond_to do |format|
@@ -99,5 +99,12 @@ class PostsController < ApplicationController
       format.html { redirect_to posts_url }
       format.json { head :no_content }
     end
+  end
+
+  def vote
+    value = params[:type] == "up" ? 1 : -1
+    @post = Post.find(params[:id])
+    @post.add_or_update_evaluation(:votes, value, current_user)
+    redirect_to :back, notice: "Thank you for voting"
   end
 end

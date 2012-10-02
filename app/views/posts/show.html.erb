@@ -1,47 +1,55 @@
+<h3>QUESTION</h3>
+</br>
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>User:</b>
-  <%= @post.user.name %>
+  <h3><%= @post.user.name %>:</h3>
 </p>
 
 <p>
-  <b>Content:</b>
+  <b>Ques:</b>
   <%= @post.content %>
 </p>
-
-<h2>Comments</h2>
+</br>
+<p>
+<h3>Answers</h3>
+<hr>
+</p>
 <% @post.comments.each do |comment| %>
   <p>
-    <b>Commenter:</b>
-    <%= comment.commenter %>
+    <b>By:</b>
+    <% user=User.find(comment.commenter) %>
+    <%= user.name %>
   </p>
  
   <p>
-    <b>Comment:</b>
+    <b>Ans:</b>
     <%= comment.body %>
   </p>
 
   <p>
-    <%= link_to 'Destroy', post_comment_path(@post,comment), confirm: 'Are you sure?', method: :delete %>
+    <% if current_user.id == user.id %>
+      <%= link_to 'Delete', post_comment_path(@post,comment), confirm: 'Are you sure?', method: :delete %>
+    <% end %>
   </p>
+  <hr>
 <% end %>
 
 
-<h2>Add a comment:</h2>
+<h3>Add an Answer:</h3>
 <%= form_for([@post, @post.comments.build]) do |f| %>
   
   
   <div class="field">
-    <%= f.label :body %><br />
-    <%= f.text_area :body %>
+   
+    <%= f.text_area :body, :rows => "8" %>
   </div>
-  <div class="actions">
+  <div class="action">
     <%= f.submit %>
   </div>
 <% end %>
 
 <br />
 
-<%= link_to 'Edit', edit_post_path(@post) %> |
-<%= link_to 'Back', posts_path %>
+<div class="btn"><%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %></div>

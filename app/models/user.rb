@@ -22,6 +22,10 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   has_many :followers, through: :reverse_relationships, source: :follower
 
+  has_reputation :votes, source: {reputation: :votes, of: :posts}, aggregated_by: :sum
+
+  has_many :evaluations, class_name: "RSEvaluation", as: :source
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
 
@@ -48,6 +52,10 @@ class User < ActiveRecord::Base
   def unfollow!(other_user)
       relationships.find_by_followed_id(other_user.id).destroy
   end
+
+  def voted_for?(post)
+    evaluations.where(target_type: post.class, target_id: post.id).present?
+  end  
   
   private
 

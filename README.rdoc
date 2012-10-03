@@ -1,1 +1,11 @@
-OSDG (Open Source Development Group)
+Hi
+
+As a part of a competition in my college IIIT-Hyderabad under the OSDG (Open Source Development Group) I built a website that works on the flaws in both Twitter and Stackoverflow.
+
+Twitter doesn't allows you to ask questions to the big guns you might be following and Stackoverflow doesn't allows to follow those big guns who might be answering your questions.
+
+Therefore I developed 'iQuest' where in you can obtain both the functionalities. Follow people you think belong to your interest field and get your doubts resolved by them as well.
+
+I hope everybody likes the Idea and the Implementation.
+
+All suggestions shall be accepted please do contact if you want to convey me something..Thanx 
